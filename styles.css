@@ -91,6 +91,14 @@ a { color: inherit; }
 }
 .icon-link:hover { background: var(--yellow); }
 
+/* Header compacto al hacer scroll (lo activa main.js) */
+.site-header .shell { transition: padding 0.25s ease; }
+.site-header.is-compact .shell { padding: 0.45rem 0; }
+.site-header.is-compact .site-wordmark span { color: var(--magenta); }
+@media (prefers-reduced-motion: reduce) {
+  .site-header .shell { transition: none; }
+}
+
 /* ---------- Botones ---------- */
 .btn {
   display: inline-flex;
@@ -321,11 +329,187 @@ a { color: inherit; }
 .site-footer { border-top: 2px solid var(--line); background: var(--paper-2); }
 .site-footer .shell { display: flex; justify-content: space-between; gap: 1rem; padding: 1.5rem 0; font-weight: 600; font-size: 0.95rem; }
 
-/* ---------- Responsive ---------- */
+/* ============================================================
+   SCROLLYTELLING
+   ============================================================ */
+
+/* Barra de progreso global */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  z-index: 999;
+  pointer-events: none;
+  background: transparent;
+}
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--magenta);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/* --- Historia en dos actos (agenda) --- */
+.story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Panel sticky: queda fijo mientras scrolleás los pasos */
+.story-stage {
+  position: sticky;
+  top: 96px;
+  height: min(70vh, 560px);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: 6px 6px 0 0 var(--line);
+}
+
+.stage-panel {
+  position: absolute;
+  inset: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: var(--paper);
+  background: var(--magenta);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.04);
+  transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s;
+}
+.stage-panel.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+/* Acto II · Startup Day: universo amarillo */
+.stage-panel:nth-child(2) { background: var(--yellow); color: var(--ink); }
+
+.stage-blob {
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1;
+  right: -18%;
+  top: -22%;
+  background: var(--paper);
+  border-radius: 58% 42% 55% 45% / 48% 55% 45% 52%;
+  opacity: 0.16;
+  animation: blob-drift 14s ease-in-out infinite alternate;
+}
+.stage-blob--yellow { background: var(--yellow); opacity: 0.9; }
+@keyframes blob-drift {
+  from { transform: rotate(-8deg) translate(0, 0); }
+  to { transform: rotate(6deg) translate(-4%, 6%); }
+}
+
+.stage-content { position: relative; display: grid; gap: 0.3rem; }
+.stage-tag {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.stage-day {
+  margin: 0;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--yellow);
+}
+.stage-panel:nth-child(2) .stage-day { color: var(--magenta); }
+.stage-panel:nth-child(2) .stage-tag { color: var(--magenta); }
+.stage-title {
+  margin: 0.4rem 0 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.stage-venue { margin: 0.6rem 0 0; font-weight: 700; font-size: 0.9rem; opacity: 0.85; }
+.stage-hint { margin: 0.15rem 0 0; font-size: 0.85rem; opacity: 0.6; }
+
+.stage-number {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.4rem;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  opacity: 0.7;
+}
+
+/* Barra de progreso dentro del acto */
+.stage-progress {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.22);
+}
+.stage-progress span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/* Pasos del relato */
+.story-steps { display: grid; gap: 0; }
+.story-step {
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+}
+.story-step__inner { display: grid; gap: 0.7rem; transition: opacity 0.45s ease, transform 0.45s ease; }
+.js .story-step__inner { opacity: 0.35; transform: translateY(12px); }
+.js .story-step.is-active .story-step__inner { opacity: 1; transform: translateY(0); }
+.story-step .btn { width: fit-content; margin-top: 0.4rem; }
+
+/* --- Scroll horizontal (Organizan) --- */
+.hscroll { position: relative; }
+.hscroll-track {
+  display: flex;
+  gap: 1.2rem;
+  width: max-content;
+  padding-right: 4vw;
+  will-change: transform;
+}
+.hscroll-track .card { width: min(320px, 78vw); }
+
+/* --- Reveals on scroll (solo si hay JS; sin JS todo queda visible) --- */
+.js [data-reveal] { opacity: 0; transform: translateY(24px); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
 @media (max-width: 900px) {
   .poster-hero { grid-template-columns: 1fr; }
   .poster-panel { border-left: 0; border-top: 2px solid var(--line); min-height: 480px; }
   .card-grid--pair, .card-grid--six, .section-head--split, .speaker-grid { grid-template-columns: 1fr; }
   .site-nav { display: none; }
   .cta { flex-direction: column; align-items: flex-start; }
+
+  /* Scrollytelling en mobile: panel arriba sticky, pasos abajo */
+  .story { grid-template-columns: 1fr; gap: 1.2rem; }
+  .story-stage { top: 64px; height: 44vh; }
+  .story-step { min-height: 56vh; }
+
+  /* Scroll horizontal → swipe nativo */
+  .hscroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; margin: 0 -4vw; padding: 0 4vw; }
+  .hscroll-track .card { scroll-snap-align: start; }
 }

@@ -6,9 +6,19 @@
 <meta name="theme-color" content="#FF0A8A" />
 <title>Tandil Tech Week · 14 &amp; 15 octubre 2026</title>
 <meta name="description" content="14 y 15 de octubre de 2026 en Tandil. Dos días para conectar el ecosistema startup y conocer a los que hacen." />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800,900&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="stylesheet" href="styles.css" />
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+
+<!-- Barra de progreso de scroll -->
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
 
 <header class="site-header">
   <div class="shell">
@@ -107,38 +117,59 @@
         <p class="section-lede">Dos jornadas muy distintas entre sí: una competencia técnica y un día para conectar. Los horarios detallados, desafíos y charlas se anunciarán próximamente.</p>
       </div>
 
-      <div class="card-grid card-grid--pair">
-        <a class="card" href="#agenda">
-          <div class="card__head">
-            <span class="eyebrow eyebrow--tag eyebrow--magenta">14 Octubre</span>
-            <span class="eyebrow eyebrow--muted">UNICEN · Campus</span>
-          </div>
-          <div>
-            <p class="eyebrow eyebrow--accent">Track 01 · Ciberseguridad</p>
-            <h3 class="card__title">Hacking Day</h3>
-            <p class="card__body">Jornada de hacking en equipos. Juntá a tus amigos y vení a divertirte aprendiendo de ciberseguridad.</p>
-          </div>
-          <div class="card__foot card__foot--action">
-            <span>Campus Universitario UNICEN</span>
-            <span class="btn btn--magenta">Ver jornada <span>→</span></span>
-          </div>
-        </a>
+      <div class="story" data-story="agenda">
 
-        <a class="card card--highlight" href="#agenda">
-          <div class="card__head">
-            <span class="eyebrow eyebrow--tag eyebrow--yellow">15 Octubre</span>
-            <span class="eyebrow eyebrow--muted">Distrito Avellaneda</span>
+        <!-- PANEL STICKY (se fija mientras scrolleás los pasos) -->
+        <div class="story-stage" aria-hidden="true">
+          <div class="stage-panel is-active" data-panel="0">
+            <div class="stage-blob"></div>
+            <div class="stage-content">
+              <p class="stage-tag">Track 01</p>
+              <p class="stage-day">14</p>
+              <h3 class="stage-title">Hacking<br />Day</h3>
+              <p class="stage-venue">UNICEN · Campus Universitario</p>
+              <p class="stage-hint">Jornada de hacking en equipos</p>
+            </div>
+            <div class="stage-number">01</div>
           </div>
-          <div>
-            <p class="eyebrow eyebrow--accent-yellow">Track 02 · Startups</p>
-            <h3 class="card__title">Startup Day</h3>
-            <p class="card__body">Vení a conocer a los que hacen. Charlas dinámicas y networking entre fundadores, venture capital y estudiantes.</p>
+          <div class="stage-panel" data-panel="1">
+            <div class="stage-blob stage-blob--yellow"></div>
+            <div class="stage-content">
+              <p class="stage-tag">Track 02</p>
+              <p class="stage-day">15</p>
+              <h3 class="stage-title">Startup<br />Day</h3>
+              <p class="stage-venue">Distrito Avellaneda · Tandil</p>
+              <p class="stage-hint">Fundadores, VC y estudiantes</p>
+            </div>
+            <div class="stage-number">02</div>
           </div>
-          <div class="card__foot card__foot--action">
-            <span>Distrito Avellaneda · Tandil</span>
-            <span class="btn btn--yellow">Ver jornada <span>→</span></span>
-          </div>
-        </a>
+          <div class="stage-progress"><span></span></div>
+        </div>
+
+        <!-- PASOS (cada uno activa su panel) -->
+        <div class="story-steps">
+          <article class="story-step" data-step="0">
+            <div class="story-step__inner">
+              <span class="eyebrow eyebrow--tag eyebrow--magenta">14 Octubre</span>
+              <span class="eyebrow eyebrow--muted">UNICEN · Campus</span>
+              <p class="eyebrow eyebrow--accent">Track 01 · Ciberseguridad</p>
+              <h3 class="card__title">Hacking Day</h3>
+              <p class="card__body">Jornada de hacking en equipos. Juntá a tus amigos y vení a divertirte aprendiendo de ciberseguridad.</p>
+              <span class="btn btn--magenta">Ver jornada <span aria-hidden="true">→</span></span>
+            </div>
+          </article>
+
+          <article class="story-step" data-step="1">
+            <div class="story-step__inner">
+              <span class="eyebrow eyebrow--tag eyebrow--yellow">15 Octubre</span>
+              <span class="eyebrow eyebrow--muted">Distrito Avellaneda</span>
+              <p class="eyebrow eyebrow--accent-yellow">Track 02 · Startups</p>
+              <h3 class="card__title">Startup Day</h3>
+              <p class="card__body">Vení a conocer a los que hacen. Charlas dinámicas y networking entre fundadores, venture capital y estudiantes.</p>
+              <span class="btn btn--yellow">Ver jornada <span aria-hidden="true">→</span></span>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </section>
@@ -170,13 +201,15 @@
         <h2 class="section-title">Organizan</h2>
         <p class="section-lede">Equipos y fondos que construyen infraestructura, capital, producto y comunidad para el ecosistema tecnológico regional.</p>
       </div>
-      <div class="card-grid card-grid--six">
-        <a class="card card--mini" href="https://picante.fund" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">VC Fund</span><span>↗</span></div><h3>Picante</h3><p class="card__body">Acompañan a la nueva generación de founders latinoamericanos.</p><div class="card__foot"><span>Venture Capital</span></div></a>
-        <a class="card card--mini" href="https://relaw.io" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">Venture Legal</span><span>↗</span></div><h3>Relaw</h3><p class="card__body">El partner legal de startups y empresas de tecnología.</p><div class="card__foot"><span>Legal Tech</span></div></a>
-        <a class="card card--mini" href="https://paisanos.io" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">Product Studio</span><span>↗</span></div><h3>Paisanos</h3><p class="card__body">Estudio de producto que diseña y construye startups globales.</p><div class="card__foot"><span>Producto</span></div></a>
-        <a class="card card--mini" href="https://hacktandil.org" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">Comunidad</span><span>↗</span></div><h3>HackTandil</h3><p class="card__body">Comunidad que impulsa el hacking y la ciberseguridad local.</p><div class="card__foot"><span>Security</span></div></a>
-        <a class="card card--mini" href="https://geonosisgroup.com" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">Tech</span><span>↗</span></div><h3>Geonosis</h3><p class="card__body">Infraestructura y software para escalar productos.</p><div class="card__foot"><span>Software</span></div></a>
-        <a class="card card--mini" href="https://heyfardo.com" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">Studio</span><span>↗</span></div><h3>Fardo</h3><p class="card__body">Diseño y comunicación para compañías de tecnología.</p><div class="card__foot"><span>Diseño</span></div></a>
+      <div class="hscroll" data-hscroll>
+        <div class="hscroll-track">
+          <a class="card card--mini" href="https://picante.fund" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">VC Fund</span><span>↗</span></div><h3>Picante</h3><p class="card__body">Acompañan a la nueva generación de founders latinoamericanos.</p><div class="card__foot"><span>Venture Capital</span></div></a>
+          <a class="card card--mini" href="https://relaw.io" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">Venture Legal</span><span>↗</span></div><h3>Relaw</h3><p class="card__body">El partner legal de startups y empresas de tecnología.</p><div class="card__foot"><span>Legal Tech</span></div></a>
+          <a class="card card--mini" href="https://paisanos.io" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">Product Studio</span><span>↗</span></div><h3>Paisanos</h3><p class="card__body">Estudio de producto que diseña y construye startups globales.</p><div class="card__foot"><span>Producto</span></div></a>
+          <a class="card card--mini" href="https://hacktandil.org" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">Comunidad</span><span>↗</span></div><h3>HackTandil</h3><p class="card__body">Comunidad que impulsa el hacking y la ciberseguridad local.</p><div class="card__foot"><span>Security</span></div></a>
+          <a class="card card--mini" href="https://geonosisgroup.com" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">Tech</span><span>↗</span></div><h3>Geonosis</h3><p class="card__body">Infraestructura y software para escalar productos.</p><div class="card__foot"><span>Software</span></div></a>
+          <a class="card card--mini" href="https://heyfardo.com" target="_blank" rel="noopener"><div class="card__head"><span class="eyebrow eyebrow--tag">Studio</span><span>↗</span></div><h3>Fardo</h3><p class="card__body">Diseño y comunicación para compañías de tecnología.</p><div class="card__foot"><span>Diseño</span></div></a>
+        </div>
       </div>
     </div>
   </section>
@@ -211,6 +244,12 @@
     <p><a href="https://instagram.com/tandiltechweek">@tandiltechweek</a> · <a href="https://x.com/tandiltechweek">@tandiltechweek</a></p>
   </div>
 </footer>
+
+<!-- Motion: Lenis (smooth scroll) + GSAP + ScrollTrigger -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="main.js" defer></script>
 
 </body>
 </html>
