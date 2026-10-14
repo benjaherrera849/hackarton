@@ -1425,7 +1425,8 @@ h3,
 
 .hscroll-track .card:nth-child(6n + 1) .eyebrow--tag,
 .hscroll-track .card:nth-child(6n + 3) .eyebrow--tag,
-.hscroll-track .card:nth-child(6n + 5) .eyebrow--tag {
+.hscroll-track .card:nth-child(6n + 5) .eyebrow--tag,
+.hscroll-track .card:nth-child(6n + 6) .eyebrow--tag {
   color: #fff;
 }
 
