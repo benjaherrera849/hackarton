@@ -285,10 +285,85 @@ a {
 
 .poster-social {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.6rem;
+  flex-wrap: wrap;
   align-items: center;
-  font-weight: 700;
-  font-size: 0.9rem;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  background: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  box-shadow: 3px 3px 0 0 var(--line);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s;
+}
+
+.social-pill svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.social-pill:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 0 var(--line);
+  background: var(--magenta);
+  color: #fff;
+}
+
+.social-pill--x:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Sparkles decorativos flotando sobre el panel magenta */
+.hero-sparkle {
+  position: absolute;
+  z-index: 3;
+  color: var(--yellow);
+  font-size: 1.6rem;
+  pointer-events: none;
+  animation: hero-twinkle 3.2s ease-in-out infinite;
+}
+
+.hero-sparkle--a {
+  top: 18%;
+  right: 12%;
+}
+
+.hero-sparkle--b {
+  bottom: 20%;
+  left: 10%;
+  font-size: 1.1rem;
+  animation-delay: 1.4s;
+}
+
+@keyframes hero-twinkle {
+
+  0%,
+  100% {
+    opacity: 0.35;
+    scale: 0.8;
+  }
+
+  50% {
+    opacity: 1;
+    scale: 1.15;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sparkle {
+    animation: none;
+  }
 }
 
 /* Panel derecho: antes azul eléctrico → ahora magenta */
@@ -348,21 +423,26 @@ a {
 }
 
 .stone-year {
+  font-size: 1rem;
   font-weight: 900;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.35em;
   color: var(--magenta);
 }
 
 .stone-wordmark {
   margin: 0.3rem 0 0;
-  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-size: clamp(2.8rem, 5.5vw, 4.8rem);
   font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
 }
 
 .stone-wordmark span {
   display: block;
+}
+
+.line-week {
+  color: var(--magenta);
 }
 
 .stone-message {
@@ -602,12 +682,25 @@ a {
 .proposal-form {
   max-width: 760px;
   display: grid;
-  gap: 1.25rem;
-  padding: clamp(1.25rem, 4vw, 2.5rem);
+  gap: 1.1rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
   border: 2px solid var(--line);
   border-radius: var(--radius);
   background: var(--paper);
   box-shadow: 6px 6px 0 0 var(--line);
+}
+
+.proposal-form__title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.proposal-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .proposal-field {
@@ -620,6 +713,7 @@ a {
 }
 
 .proposal-field input,
+.proposal-field select,
 .proposal-field textarea {
   width: 100%;
   border: 2px solid var(--line);
@@ -630,12 +724,22 @@ a {
   font: inherit;
 }
 
+.proposal-field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23160a14' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 14px;
+  padding-right: 2.4rem;
+}
+
 .proposal-field textarea {
-  min-height: 160px;
+  min-height: 120px;
   resize: vertical;
 }
 
 .proposal-field input:focus-visible,
+.proposal-field select:focus-visible,
 .proposal-field textarea:focus-visible {
   outline: 3px solid var(--magenta);
   outline-offset: 2px;
@@ -651,6 +755,56 @@ a {
 .proposal-submit:disabled {
   cursor: not-allowed;
   opacity: 0.65;
+}
+
+/* Envío simulado: estados del botón */
+.proposal-submit.is-loading {
+  opacity: 0.75;
+  cursor: progress;
+}
+
+.proposal-submit.is-success {
+  background: var(--yellow);
+  color: var(--ink);
+  animation: submit-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.proposal-submit .check-mark {
+  display: inline-block;
+  font-weight: 900;
+  animation: check-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes submit-pop {
+  0% {
+    transform: scale(0.9);
+  }
+
+  60% {
+    transform: scale(1.07);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes check-pop {
+  from {
+    transform: scale(0) rotate(-30deg);
+  }
+
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .proposal-submit.is-success,
+  .proposal-submit .check-mark {
+    animation: none;
+  }
 }
 
 .proposal-form__note {
@@ -1199,6 +1353,304 @@ a {
 .js [data-reveal] {
   opacity: 0;
   transform: translateY(24px);
+}
+
+/* ============================================================
+   EVENTOS — board + calendario + formulario
+   ============================================================ */
+.events-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 1.6rem;
+  align-items: start;
+}
+
+/* --- Board (izquierda) --- */
+.events-board-wrap {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.events-board-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+}
+
+.events-board {
+  display: grid;
+  gap: 1rem;
+}
+
+.event-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  padding: 1rem 1.2rem;
+  box-shadow: 4px 4px 0 0 var(--line);
+  transition: box-shadow 0.15s, transform 0.15s, outline-color 0.15s;
+  outline: 3px solid transparent;
+  outline-offset: 2px;
+}
+
+.event-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--magenta);
+}
+
+.event-card.is-highlighted {
+  outline-color: var(--magenta);
+  background: var(--yellow-soft);
+}
+
+.event-date {
+  margin: 0;
+  min-width: 64px;
+  text-align: center;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: var(--yellow);
+  padding: 0.5rem 0.4rem;
+  line-height: 1.1;
+}
+
+.event-date strong {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.event-date span {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.event-info {
+  min-width: 0;
+}
+
+.event-info h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+.event-info p {
+  margin: 0.2rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.event-tag {
+  margin-left: auto;
+  flex-shrink: 0;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--magenta);
+  color: #fff;
+}
+
+.event-tag--yellow {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.events-empty {
+  margin: 0;
+  border: 2px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+
+/* --- Calendario (derecha, arriba) --- */
+.events-side {
+  display: grid;
+  gap: 1.6rem;
+}
+
+.calendar-card {
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: 4px 4px 0 0 var(--line);
+  padding: 1.1rem;
+}
+
+.calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.calendar-month {
+  margin: 0;
+  font-weight: 900;
+  font-size: 1.05rem;
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.calendar-nav button {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  font-weight: 900;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 0 var(--line);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+.calendar-nav button:hover {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 0 var(--line);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  padding: 0.35rem 0;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.calendar-day {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: transparent;
+}
+
+.calendar-day:disabled {
+  cursor: default;
+  color: var(--ink-muted);
+}
+
+.calendar-day:not(:disabled):hover {
+  background: var(--yellow-soft);
+}
+
+.calendar-day.is-today {
+  box-shadow: inset 0 0 0 2px var(--magenta);
+  color: var(--magenta);
+  font-weight: 900;
+}
+
+.calendar-day.is-selected {
+  background: var(--ink);
+  color: #fff;
+}
+
+.calendar-day.has-events::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  translate: -50% 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--magenta);
+}
+
+.calendar-day.has-events--yellow::after {
+  background: var(--yellow-deep);
+}
+
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin: 0.9rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.calendar-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.calendar-legend .dot {
+  width: 8px;
+  height: 8px;
+}
+
+.dot--yellow {
+  background: var(--yellow-deep);
+}
+
+.calendar-gcal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  background: var(--paper);
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-decoration: none;
+  box-shadow: 2px 2px 0 0 var(--line);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+.calendar-gcal:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 0 var(--line);
+  background: var(--yellow);
+}
+
+/* El formulario dentro de events-side ocupa todo el ancho */
+.events-side .proposal-form {
+  max-width: none;
 }
 
 /* ============================================================

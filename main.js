@@ -14,6 +14,10 @@
   const hasST = typeof window.ScrollTrigger !== "undefined";
   const hasLenis = typeof window.Lenis !== "undefined";
 
+  /* Agenda: independiente de GSAP, funciona aunque falte la librería */
+  initEvents();
+  initProposalForm();
+
   if (!hasGsap || !hasST) {
     // Sin GSAP el contenido ya es visible por CSS (.js + data-reveal se resuelven abajo)
     html.classList.remove("js");
@@ -86,7 +90,13 @@
       .from(".poster-title", { y: 24, opacity: 0, duration: 0.6 }, "-=0.35")
       .from(".poster-foot", { y: 20, opacity: 0, duration: 0.5 }, "-=0.3")
       .from(".stone-top-box", { y: 40, opacity: 0, rotate: -3, duration: 0.7 }, 0.2)
-      .from(".stone-bottom-box", { y: 50, opacity: 0, rotate: 2, duration: 0.7 }, 0.35);
+      .from(".stone-bottom-box", { y: 50, opacity: 0, rotate: 2, duration: 0.7 }, 0.35)
+      .from(
+        ".hero-sticker",
+        { scale: 0, opacity: 0, stagger: 0.15, duration: 0.55, ease: "back.out(2.2)" },
+        0.55
+      )
+      .from(".hero-sparkle", { scale: 0, opacity: 0, stagger: 0.2, duration: 0.5 }, 0.8);
 
     // Parallax de blobs mientras el hero está en pantalla
     gsap.to(".blob", {
@@ -222,11 +232,157 @@
   });
 
   /* ============================================================
+     8b. EVENTOS — board + calendario (sin dependencia de GSAP)
+     ============================================================ */
+  function initEvents() {
+    const EVENTS = [
+      { date: "2026-09-28", time: "18:30", title: "Pre-Week Kickoff", venue: "Casa de la Cultura · Tandil", tag: "Comunidad", color: "yellow" },
+      { date: "2026-10-05", time: "19:00", title: "Taller: Intro a Ciberseguridad", venue: "UNICEN · Campus", tag: "Taller", color: "magenta" },
+      { date: "2026-10-08", time: "18:00", title: "Founders & Coffee", venue: "Distrito Avellaneda", tag: "Networking", color: "yellow" },
+      { date: "2026-10-14", time: "09:00", title: "Hacking Day", venue: "UNICEN · Campus Universitario", tag: "Día 01", color: "magenta" },
+      { date: "2026-10-15", time: "10:00", title: "Startup Day", venue: "Distrito Avellaneda", tag: "Día 02", color: "yellow" },
+      { date: "2026-10-22", time: "19:00", title: "Demo Night & Cierre", venue: "Polo Científico · Tandil", tag: "Comunidad", color: "magenta" },
+    ];
+
+    const board = document.getElementById("events-board");
+    const daysGrid = document.getElementById("calendar-days");
+    const weekdaysGrid = document.getElementById("calendar-weekdays");
+    const monthLabel = document.getElementById("calendar-month");
+    const prevBtn = document.getElementById("calendar-prev");
+    const nextBtn = document.getElementById("calendar-next");
+    if (!board || !daysGrid || !weekdaysGrid || !monthLabel || !prevBtn || !nextBtn) return;
+
+    const WEEKDAYS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+    const MONTH_FMT = new Intl.DateTimeFormat("es-AR", { month: "long", year: "numeric" });
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const iso = (d) =>
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+    const events = EVENTS.map((e) => ({ ...e, _d: new Date(`${e.date}T12:00:00`) })).sort((a, b) => a._d - b._d);
+    const upcoming = events.filter((e) => e._d >= today);
+    const byDate = {};
+    events.forEach((e) => (byDate[e.date] ||= []).push(e));
+
+    /* ---- Board de próximos eventos ---- */
+    if (!upcoming.length) {
+      board.innerHTML =
+        '<p class="events-empty">No hay eventos próximos por ahora. Escribinos desde el formulario si querés proponer uno.</p>';
+    } else {
+      board.innerHTML = upcoming
+        .map((e) => {
+          const tagClass = e.color === "yellow" ? " event-tag--yellow" : "";
+          return `<article class="event-card" data-date="${e.date}">
+            <p class="event-date"><strong>${e._d.getDate()}</strong><span>${e._d.toLocaleDateString("es-AR", { month: "short" }).replace(".", "")}</span></p>
+            <div class="event-info">
+              <h3>${e.title}</h3>
+              <p>${e.time} · ${e.venue}</p>
+            </div>
+            <span class="event-tag${tagClass}">${e.tag}</span>
+          </article>`;
+        })
+        .join("");
+    }
+
+    /* ---- Calendario estilo Google ---- */
+    weekdaysGrid.innerHTML = WEEKDAYS.map((d) => `<span>${d}</span>`).join("");
+
+    let view = upcoming.length ? new Date(upcoming[0]._d) : new Date();
+    let selected = null;
+
+    const render = () => {
+      const y = view.getFullYear();
+      const m = view.getMonth();
+      monthLabel.textContent = MONTH_FMT.format(view).replace(/^./, (c) => c.toUpperCase());
+
+      const firstOffset = (new Date(y, m, 1).getDay() + 6) % 7; // semana empieza lunes
+      const daysInMonth = new Date(y, m + 1, 0).getDate();
+
+      let html = "";
+      for (let i = 0; i < firstOffset; i++) html += '<span class="calendar-day is-empty" aria-hidden="true"></span>';
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(y, m, d);
+        const key = iso(date);
+        const evs = byDate[key] || [];
+        const classes = ["calendar-day"];
+        if (date.getTime() === today.getTime()) classes.push("is-today");
+        if (evs.length) classes.push("has-events");
+        if (evs.length && evs.every((e) => e.color === "yellow")) classes.push("has-events--yellow");
+        if (selected === key) classes.push("is-selected");
+        html += `<button type="button" class="${classes.join(" ")}" data-date="${key}" ${evs.length ? "" : "disabled"} aria-label="${date.toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long" })}${evs.length ? ` · ${evs.map((e) => e.title).join(", ")}` : ""}">${d}</button>`;
+      }
+      daysGrid.innerHTML = html;
+    };
+
+    // Click en un día con eventos → lo resalta en el board
+    daysGrid.addEventListener("click", (e) => {
+      const btn = e.target.closest("button.calendar-day");
+      if (!btn || btn.disabled) return;
+      selected = selected === btn.dataset.date ? null : btn.dataset.date;
+      render();
+      document.querySelectorAll(".event-card").forEach((card) => {
+        card.classList.toggle("is-highlighted", selected !== null && card.dataset.date === selected);
+      });
+    });
+
+    prevBtn.addEventListener("click", () => {
+      view = new Date(view.getFullYear(), view.getMonth() - 1, 1);
+      render();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      view = new Date(view.getFullYear(), view.getMonth() + 1, 1);
+      render();
+    });
+
+    render();
+  }
+
+  /* ============================================================
+     8c. FORMULARIO DE PROPUESTAS — envío simulado con animación
+     ============================================================ */
+  function initProposalForm() {
+    const form = document.querySelector(".proposal-form");
+    const btn = form?.querySelector(".proposal-submit");
+    if (!form || !btn) return;
+
+    const originalLabel = btn.textContent;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (btn.classList.contains("is-loading") || btn.classList.contains("is-success")) return;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Fase 1: "Enviando…"
+      btn.classList.add("is-loading");
+      btn.textContent = "Enviando…";
+
+      // Fase 2: éxito con pop + check, y reset del formulario
+      setTimeout(() => {
+        btn.classList.remove("is-loading");
+        btn.classList.add("is-success");
+        btn.innerHTML = '<span class="check-mark" aria-hidden="true">✓</span> ¡Enviado!';
+
+        setTimeout(() => {
+          btn.classList.remove("is-success");
+          btn.textContent = originalLabel;
+          form.reset();
+        }, 3200);
+      }, 900);
+    });
+  }
+
+  /* ============================================================
      8. REVEALS GENÉRICOS (secciones, cards, speakers, CTA)
      ============================================================ */
   mm.add("(prefers-reduced-motion: no-preference)", () => {
     const revealGroups = [
       ".section-head > *",
+      ".event-card, .events-board-title",
+      ".calendar-card, .proposal-form",
       ".card-grid--six .card, .hscroll-track .card",
       ".speaker-card",
       ".thanks-band__head > *",

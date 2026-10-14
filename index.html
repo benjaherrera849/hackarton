@@ -29,7 +29,7 @@
       <nav class="site-nav" aria-label="Secciones">
         <a href="#agenda">Agenda</a>
         <a href="#speakers">Speakers</a>
-        <a href="#proponer-evento">Proponer evento</a>
+        <a href="#eventos">Eventos</a>
         <a href="#organizan">Organizan</a>
         <a href="#acompanan">Acompañan</a>
       </nav>
@@ -71,13 +71,32 @@
           </div>
           <div class="poster-social">
             <span>Seguinos</span>
-            <a href="https://instagram.com/tandiltechweek" target="_blank" rel="noopener">@tandiltechweek</a>
-            <a href="https://x.com/tandiltechweek" target="_blank" rel="noopener">@tandiltechweek en X</a>
+            <a class="social-pill social-pill--ig" href="https://instagram.com/tandiltechweek" target="_blank"
+              rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none" />
+              </svg>
+              @tandiltechweek
+            </a>
+            <a class="social-pill social-pill--x" href="https://x.com/tandiltechweek" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M18.9 1.2h3.7l-8.1 9.3 9.5 12.3h-7.5l-5.9-7.7-6.7 7.7H.2l8.7-9.9L0 1.2h7.7l5.3 7 6-7zm-1.3 19.6h2.1L6.5 3.3H4.3l13.3 17.5z" />
+              </svg>
+              @tandiltechweek
+            </a>
           </div>
         </div>
       </div>
 
       <div class="poster-panel">
+
+        <!-- Sparkles decorativos -->
+        <span class="hero-sparkle hero-sparkle--a" aria-hidden="true">✦</span>
+        <span class="hero-sparkle hero-sparkle--b" aria-hidden="true">✦</span>
 
         <div class="poster-art-stage">
           <svg class="poster-art-svg" viewBox="0 0 965 1020" preserveAspectRatio="none" aria-hidden="true">
@@ -218,34 +237,86 @@
       </div>
     </section>
 
-    <!-- PROPONER EVENTO -->
-    <section id="proponer-evento" class="section section--soft">
+    <!-- EVENTOS -->
+    <section id="eventos" class="section section--soft">
       <div class="shell">
         <div class="section-head section-head--split">
           <div>
-            <p class="eyebrow eyebrow--accent">Convocatoria abierta</p>
-            <h2 class="section-title">¿Tenés una propuesta?</h2>
+            <p class="eyebrow eyebrow--accent">Agenda abierta</p>
+            <h2 class="section-title">Eventos</h2>
           </div>
-          <p class="section-lede">¿Querés dar una charla, organizar un taller o proponer una actividad? Contanos tu idea
-            y dejanos un email para contactarte.</p>
+          <p class="section-lede">Todo lo que se viene antes y durante la semana. Elegí una fecha en el calendario,
+            anotala, y si querés sumar tu propia actividad, escribinos desde el formulario.</p>
         </div>
-        <form class="proposal-form" aria-describedby="proposal-form-note">
-          <div class="proposal-field">
-            <label for="proposal-email">Tu email</label>
-            <input id="proposal-email" name="email" type="email" autocomplete="email" placeholder="vos@ejemplo.com"
-              required>
+
+        <div class="events-layout">
+
+          <!-- BOARD: próximos eventos -->
+          <div class="events-board-wrap">
+            <p class="events-board-title"><span class="dot"></span>Próximos eventos</p>
+            <div class="events-board" id="events-board" aria-live="polite">
+              <p class="events-empty">Cargando agenda…</p>
+            </div>
           </div>
-          <div class="proposal-field">
-            <label for="proposal-message">Tu propuesta</label>
-            <textarea id="proposal-message" name="message" rows="6"
-              placeholder="Contanos de qué se trata, a quiénes está dirigida y qué formato imaginás." required></textarea>
+
+          <!-- CALENDARIO + CONTACTO -->
+          <div class="events-side">
+
+            <div class="calendar-card">
+              <div class="calendar-head">
+                <p class="calendar-month" id="calendar-month">—</p>
+                <div class="calendar-nav">
+                  <button type="button" id="calendar-prev" aria-label="Mes anterior">←</button>
+                  <button type="button" id="calendar-next" aria-label="Mes siguiente">→</button>
+                </div>
+              </div>
+              <div class="calendar-grid calendar-weekdays" id="calendar-weekdays" aria-hidden="true"></div>
+              <div class="calendar-grid" id="calendar-days"></div>
+              <p class="calendar-legend">
+                <span><i class="dot dot--magenta"></i>Jornadas TTW</span>
+                <span><i class="dot dot--yellow"></i>Comunidad &amp; previos</span>
+              </p>
+              <a class="calendar-gcal" href="https://calendar.google.com/" target="_blank" rel="noopener">Ver en
+                Google Calendar <span aria-hidden="true">↗</span></a>
+            </div>
+
+            <form class="proposal-form" aria-describedby="proposal-form-note">
+              <p class="proposal-form__title">¿Querés sumar un evento?</p>
+              <div class="proposal-row">
+                <div class="proposal-field">
+                  <label for="proposal-name">Tu nombre</label>
+                  <input id="proposal-name" name="name" type="text" autocomplete="name" placeholder="Ada Lovelace"
+                    required>
+                </div>
+                <div class="proposal-field">
+                  <label for="proposal-email">Tu email</label>
+                  <input id="proposal-email" name="email" type="email" autocomplete="email" placeholder="vos@ejemplo.com"
+                    required>
+                </div>
+              </div>
+              <div class="proposal-field">
+                <label for="proposal-type">¿Qué querés proponer?</label>
+                <select id="proposal-type" name="type">
+                  <option value="charla">Charla</option>
+                  <option value="taller">Taller</option>
+                  <option value="actividad">Actividad / experiencia</option>
+                  <option value="otro">Otra cosa</option>
+                </select>
+              </div>
+              <div class="proposal-field">
+                <label for="proposal-message">Contanos más</label>
+                <textarea id="proposal-message" name="message" rows="4"
+                  placeholder="De qué se trata, a quiénes está dirigido y qué formato imaginás." required></textarea>
+              </div>
+              <div class="proposal-form__actions">
+                <button class="btn btn--magenta proposal-submit" type="submit">Enviar propuesta</button>
+                <p id="proposal-form-note" class="proposal-form__note">Modo demo: la propuesta no se envía de verdad
+                  todavía, pero pronto lo estará.</p>
+              </div>
+            </form>
+
           </div>
-          <div class="proposal-form__actions">
-            <button class="btn btn--magenta proposal-submit" type="submit" disabled>Enviar propuesta</button>
-            <p id="proposal-form-note" class="proposal-form__note">El envío todavía no está habilitado. Pronto vas a poder
-              compartir tu propuesta desde acá.</p>
-          </div>
-        </form>
+        </div>
       </div>
     </section>
 
