@@ -26,7 +26,8 @@
   --line: #160a14;
 
   --radius: 18px;
-  --font: "Switzer", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: "Archivo Black", system-ui, sans-serif;
 }
 
 * {
@@ -48,6 +49,28 @@ body {
 
 a {
   color: inherit;
+}
+
+/* Títulos en Archivo Black, cuerpo en Space Mono */
+h1,
+h2,
+h3,
+.poster-date,
+.date-number,
+.date-month,
+.poster-title,
+.stone-wordmark,
+.section-title,
+.card__title,
+.thanks-title,
+.thanks-marquee__track,
+.stage-day,
+.stage-title,
+.sponsor-card__wordmark,
+.cta h2,
+.marquee-track {
+  font-family: var(--font-display);
+  font-weight: 400;
 }
 
 .shell {
@@ -378,14 +401,16 @@ a {
 
 .poster-art-stage {
   position: absolute;
-  inset: -3px 0 -3px -4px;
+  inset: 0;
 }
 
 .poster-art-svg {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: min(80%, 520px);
+  width: auto;
 }
 
 .blob {
@@ -410,9 +435,10 @@ a {
 }
 
 .poster-art-content {
-  position: relative;
-  margin: auto;
+  position: absolute;
+  inset: 0;
   display: grid;
+  place-content: center;
   gap: 1rem;
   text-align: center;
   color: #160a14;
@@ -442,7 +468,7 @@ a {
 }
 
 .line-week {
-  color: var(--magenta);
+  color: var(--black);
 }
 
 .stone-message {
@@ -1000,7 +1026,7 @@ a {
   position: absolute;
   top: 1.2rem;
   right: 1.3rem;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font);
   font-weight: 700;
   font-size: 0.8rem;
   border: 2px solid var(--line);
@@ -1270,7 +1296,7 @@ a {
   position: absolute;
   top: 1.2rem;
   right: 1.4rem;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font);
   font-weight: 700;
   font-size: 0.85rem;
   border: 2px solid currentColor;
@@ -1724,4 +1750,27 @@ a {
   .hscroll-track .card {
     scroll-snap-align: start;
   }
+}
+
+/* Archivo Black solo tiene peso 400: forzar 400 en display para evitar faux-bold */
+h1,
+h2,
+h3,
+.poster-date,
+.date-number,
+.date-month,
+.poster-title,
+.stone-wordmark,
+.section-title,
+.card__title,
+.thanks-title,
+.thanks-marquee__track,
+.stage-day,
+.stage-title,
+.sponsor-card__wordmark,
+.cta h2,
+.marquee-track,
+.marquee-track em,
+.thanks-marquee__track em {
+  font-weight: 400;
 }

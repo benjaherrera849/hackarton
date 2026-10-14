@@ -7,7 +7,7 @@ tech regional — Hacking Day en el campus de la UNICEN y Startup Day en Distrit
 
 - **HTML + CSS + JS vanilla**, sin build ni dependencias locales.
 - **GSAP + ScrollTrigger** para el scrollytelling y **Lenis** para el smooth scroll (vía CDN, degradan gracefully).
-- Fuentes: [Switzer](https://api.fontshare.com) y JetBrains Mono.
+- Fuentes: Space Mono (cuerpo) y Archivo Black (títulos), vía Google Fonts.
 
 ## Cómo correr
 
