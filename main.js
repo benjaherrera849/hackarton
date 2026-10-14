@@ -378,7 +378,7 @@
       ".section-head > *",
       ".event-card, .events-board-title",
       ".calendar-card, .proposal-form",
-      ".card-grid--six .card, .hscroll-track .card",
+      ".card-grid--six .card",
       ".thanks-band__head > *",
       ".cta > *",
     ];
@@ -392,6 +392,19 @@
         duration: 0.7,
         ease: "power2.out",
         scrollTrigger: { trigger: els[0], start: "top 85%" },
+      });
+    });
+
+    // Organizan: entrada sin pisar el tilt/hover del CSS
+    // (anima los hijos, igual que las sponsor-cards)
+    gsap.utils.toArray(".hscroll-track .card").forEach((card) => {
+      gsap.from(card.children, {
+        y: 26,
+        opacity: 0,
+        stagger: 0.06,
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: { trigger: card, start: "top 88%" },
       });
     });
 
