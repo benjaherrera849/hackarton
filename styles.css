@@ -658,27 +658,7 @@ a {
   font-size: 1.4rem;
 }
 
-/* ---------- Speakers ---------- */
-.speaker-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-
-.speaker-card {
-  border: 2px solid var(--line);
-  border-radius: var(--radius);
-  background: #fff;
-  padding: 1.2rem;
-  text-align: center;
-  font-weight: 800;
-}
-
-.speaker-card small {
-  color: var(--magenta);
-  font-weight: 800;
-}
-
+/* ---------- Formulario de propuestas ---------- */
 .proposal-form {
   max-width: 760px;
   display: grid;
@@ -812,20 +792,6 @@ a {
   margin: 0;
   color: var(--ink-muted);
   font-size: 0.9rem;
-}
-
-.avatar {
-  display: block;
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 0.8rem;
-  border-radius: 50%;
-  background: var(--magenta);
-  border: 2px solid var(--line);
-}
-
-.avatar--alt {
-  background: var(--yellow);
 }
 
 /* ---------- Sponsors: cinta de créditos + muro de stickers ---------- */
@@ -1669,8 +1635,7 @@ a {
 
   .card-grid--pair,
   .card-grid--six,
-  .section-head--split,
-  .speaker-grid {
+  .section-head--split {
     grid-template-columns: 1fr;
   }
 

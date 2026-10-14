@@ -91,11 +91,6 @@
       .from(".poster-foot", { y: 20, opacity: 0, duration: 0.5 }, "-=0.3")
       .from(".stone-top-box", { y: 40, opacity: 0, rotate: -3, duration: 0.7 }, 0.2)
       .from(".stone-bottom-box", { y: 50, opacity: 0, rotate: 2, duration: 0.7 }, 0.35)
-      .from(
-        ".hero-sticker",
-        { scale: 0, opacity: 0, stagger: 0.15, duration: 0.55, ease: "back.out(2.2)" },
-        0.55
-      )
       .from(".hero-sparkle", { scale: 0, opacity: 0, stagger: 0.2, duration: 0.5 }, 0.8);
 
     // Parallax de blobs mientras el hero está en pantalla
@@ -384,7 +379,6 @@
       ".event-card, .events-board-title",
       ".calendar-card, .proposal-form",
       ".card-grid--six .card, .hscroll-track .card",
-      ".speaker-card",
       ".thanks-band__head > *",
       ".cta > *",
     ];
