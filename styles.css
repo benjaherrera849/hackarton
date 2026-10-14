@@ -674,26 +674,245 @@ a {
   background: var(--yellow);
 }
 
-/* ---------- Sponsors + CTA ---------- */
-.sponsor-row {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 2.5rem;
+/* ---------- Sponsors: cinta de créditos + muro de stickers ---------- */
+#acompanan.section {
+  padding-top: 0;
 }
 
-.sponsor-row a {
+/* Cinta de créditos (full-bleed magenta) */
+.thanks-band {
+  position: relative;
+  background: var(--magenta);
+  border-bottom: 2px solid var(--line);
+  padding: 3.4rem 0 0;
+  margin-bottom: 3.2rem;
+  overflow: hidden;
+}
+
+.thanks-band__head {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.thanks-title {
+  margin: 0;
+  font-size: clamp(2.1rem, 5.5vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.thanks-title em {
+  color: var(--yellow);
+  font-style: normal;
+}
+
+.thanks-lede {
+  margin: 0.2rem 0 2rem;
+  color: rgba(246, 241, 231, 0.85);
+  font-size: 1.05rem;
+  max-width: 560px;
+}
+
+/* Nombres en display gigante sobre cinta tinta */
+.thanks-marquee {
+  background: var(--ink);
+  border-top: 2px solid var(--line);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0.8rem 0;
+}
+
+.thanks-marquee__track {
+  display: inline-flex;
+  gap: 2.5rem;
+  font-weight: 900;
+  font-size: clamp(2rem, 6vw, 4.4rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--paper);
+  animation: scroll 26s linear infinite;
+}
+
+.thanks-marquee__track em {
+  color: var(--yellow);
+  font-style: normal;
+  margin-left: 2.5rem;
+}
+
+/* Sello circular que gira (SVG con texto en trayectoria) */
+.thanks-seal {
+  position: absolute;
+  top: 1.8rem;
+  right: 4vw;
+  width: 118px;
+  height: 118px;
+  display: grid;
+  place-items: center;
+  background: var(--yellow);
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0 0 var(--line);
+}
+
+.thanks-seal svg {
+  position: absolute;
+  inset: 0;
+  animation: seal-spin 16s linear infinite;
+}
+
+.thanks-seal text {
+  font-size: 8.6px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  fill: var(--ink);
+  font-family: var(--font);
+}
+
+.thanks-seal__mark {
+  font-size: 1.6rem;
+  color: var(--magenta);
+  line-height: 1;
+}
+
+@keyframes seal-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thanks-seal svg,
+  .thanks-marquee__track,
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Muro de stickers */
+.sponsor-wall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  margin-bottom: 3.2rem;
+}
+
+.sponsor-card {
+  --accent: var(--magenta);
+  --tilt: 0deg;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 1rem;
+  border: 2px solid var(--line);
+  border-radius: calc(var(--radius) + 6px);
+  background: #fff;
+  padding: 1.6rem;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 5px 5px 0 0 var(--line);
+  transform: rotate(var(--tilt));
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sponsor-card--yellow {
+  --accent: var(--yellow);
+  background: var(--yellow-soft);
+}
+
+.sponsor-card--deep {
+  --accent: var(--magenta-deep);
+}
+
+.sponsor-card:nth-child(1) {
+  --tilt: -2deg;
+}
+
+.sponsor-card:nth-child(2) {
+  --tilt: 1.6deg;
+}
+
+.sponsor-card:nth-child(3) {
+  --tilt: -1.2deg;
+}
+
+.sponsor-card:hover,
+.sponsor-card:focus-visible {
+  transform: rotate(0) translateY(-8px);
+  box-shadow: 9px 9px 0 0 var(--accent);
+}
+
+.sponsor-card__index {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.3rem;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
   border: 2px solid var(--line);
   border-radius: 999px;
-  padding: 0.7rem 1.2rem;
+  padding: 0.2rem 0.6rem;
   background: #fff;
-  font-weight: 800;
-  text-decoration: none;
 }
 
-.sponsor-row a:hover {
-  background: var(--magenta);
-  color: #fff;
+.sponsor-card__inner {
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 120px;
+}
+
+.sponsor-card__blob {
+  position: absolute;
+  inset: -8% -6%;
+  background: var(--accent);
+  opacity: 0.16;
+  border-radius: 58% 42% 55% 45% / 48% 55% 45% 52%;
+  transform: rotate(-6deg);
+  transition: opacity 0.25s, transform 0.4s ease;
+}
+
+.sponsor-card:hover .sponsor-card__blob {
+  opacity: 0.3;
+  transform: rotate(5deg) scale(1.06);
+}
+
+.sponsor-card__wordmark {
+  position: relative;
+  margin: 0;
+  font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  transition: color 0.2s;
+}
+
+.sponsor-card:hover .sponsor-card__wordmark {
+  color: var(--accent);
+}
+
+.sponsor-card__body {
+  margin: 0;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.sponsor-card__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px dashed var(--line);
+  padding-top: 0.9rem;
+  font-weight: 800;
+  font-size: 0.92rem;
+}
+
+.sponsor-card__foot > span[aria-hidden] {
+  transition: transform 0.2s;
+}
+
+.sponsor-card:hover .sponsor-card__foot > span[aria-hidden] {
+  transform: translate(3px, -3px);
 }
 
 .cta {
@@ -1001,6 +1220,19 @@ a {
   .section-head--split,
   .speaker-grid {
     grid-template-columns: 1fr;
+  }
+
+  .thanks-seal {
+    display: none;
+  }
+
+  .thanks-band {
+    padding-top: 2.6rem;
+  }
+
+  .sponsor-wall {
+    grid-template-columns: 1fr;
+    gap: 1.7rem;
   }
 
   .site-nav {

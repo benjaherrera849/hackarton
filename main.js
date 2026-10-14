@@ -126,31 +126,26 @@
   });
 
   /* ============================================================
-     5. MARQUEE REACTIVO (velocidad ligada al scroll)
+     5. MARQUEES REACTIVOS (velocidad ligada al scroll)
      ============================================================ */
-  const marqueeTrack = document.querySelector(".marquee-track");
-  if (marqueeTrack && !reduceMotion) {
+  const makeReactiveMarquee = (track, duration) => {
+    if (!track || reduceMotion) return;
     // Pausa la animación CSS y la maneja GSAP para poder reaccionar al scroll
-    marqueeTrack.style.animation = "none";
-    const marqueeTween = gsap.to(marqueeTrack, {
-      xPercent: -50,
-      repeat: -1,
-      duration: 22,
-      ease: "none",
-    });
+    track.style.animation = "none";
+    const tween = gsap.to(track, { xPercent: -50, repeat: -1, duration, ease: "none" });
     ScrollTrigger.create({
       start: 0,
       end: "max",
       onUpdate: (self) => {
         // Scroll rápido → el marquee acelera; scroll inverso → frena/invierte suave
         const boost = 1 + Math.min(Math.abs(self.getVelocity()) / 900, 3);
-        gsap.to(marqueeTween, { timeScale: boost, duration: 0.4, overwrite: true });
-        if (self.direction === -1) {
-          gsap.to(marqueeTween, { timeScale: -1 * boost * 0.4, duration: 0.4, overwrite: true });
-        }
+        const timeScale = self.direction === -1 ? -boost * 0.4 : boost;
+        gsap.to(tween, { timeScale, duration: 0.4, overwrite: true });
       },
     });
-  }
+  };
+  makeReactiveMarquee(document.querySelector(".marquee-track"), 22);
+  makeReactiveMarquee(document.querySelector(".thanks-marquee__track"), 26);
 
   /* ============================================================
      6. AGENDA — historia en dos actos (panel sticky)
@@ -234,7 +229,7 @@
       ".section-head > *",
       ".card-grid--six .card, .hscroll-track .card",
       ".speaker-card",
-      ".sponsor-row a",
+      ".thanks-band__head > *",
       ".cta > *",
     ];
     revealGroups.forEach((selector) => {
@@ -261,6 +256,29 @@
           duration: 0.9,
           ease: "power2.out",
           scrollTrigger: { trigger: av, start: "top 88%" },
+        }
+      );
+    });
+
+    // Sponsors: entrada tipo sticker (hijos con stagger, sin pisar el tilt del CSS)
+    // + wordmark que pasa de grayscale a color
+    gsap.utils.toArray(".sponsor-card").forEach((card) => {
+      gsap.from(card.children, {
+        y: 26,
+        opacity: 0,
+        stagger: 0.06,
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: { trigger: card, start: "top 88%" },
+      });
+      gsap.fromTo(
+        card.querySelector(".sponsor-card__wordmark"),
+        { filter: "grayscale(1) contrast(0.85)" },
+        {
+          filter: "grayscale(0) contrast(1)",
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTrigger: { trigger: card, start: "top 88%" },
         }
       );
     });

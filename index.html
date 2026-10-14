@@ -303,15 +303,74 @@
 
     <!-- ACOMPAÑAN -->
     <section id="acompanan" class="section">
-      <div class="shell">
-        <div class="section-head">
-          <p class="eyebrow eyebrow--accent">Sponsors</p>
-          <h2 class="section-title">Acompañan</h2>
+      <!-- Cinta de créditos: bienvenida a la sección, a todo lo ancho -->
+      <div class="thanks-band">
+        <div class="shell thanks-band__head">
+          <p class="eyebrow eyebrow--tag eyebrow--yellow"><span class="dot"></span>Gracias</p>
+          <h2 class="thanks-title">Este evento es <em>posible</em> gracias a</h2>
+          <p class="thanks-lede">Detrás de cada jornada hay equipos que aportan infraestructura, capital y comunidad.
+            Estos son.</p>
         </div>
-        <div class="sponsor-row">
-          <a href="https://gruporotonda.com.ar" target="_blank" rel="noopener">Grupo Rotonda</a>
-          <a href="https://theredguild.org" target="_blank" rel="noopener">The Red Guild</a>
-          <a href="https://www.payoneer.com" target="_blank" rel="noopener">Payoneer</a>
+        <div class="thanks-marquee" aria-hidden="true">
+          <div class="thanks-marquee__track">
+            <span>GRUPO ROTONDA<em>✦</em></span>
+            <span>THE RED GUILD<em>✦</em></span>
+            <span>PAYONEER<em>✦</em></span>
+            <span>GRUPO ROTONDA<em>✦</em></span>
+            <span>THE RED GUILD<em>✦</em></span>
+            <span>PAYONEER<em>✦</em></span>
+          </div>
+        </div>
+        <span class="thanks-seal" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <defs>
+              <path id="seal-path" d="M50,50 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0" />
+            </defs>
+            <text>
+              <textPath href="#seal-path" textLength="226" lengthAdjust="spacingAndGlyphs">GRACIAS · TANDIL TECH WEEK ·
+                2026 ·</textPath>
+            </text>
+          </svg>
+          <span class="thanks-seal__mark">✦</span>
+        </span>
+      </div>
+
+      <div class="shell">
+        <!-- Muro de stickers: cada sponsor es una card protagónica -->
+        <div class="sponsor-wall">
+          <a class="sponsor-card sponsor-card--magenta" href="https://gruporotonda.com.ar" target="_blank"
+            rel="noopener">
+            <span class="sponsor-card__index">01</span>
+            <span class="eyebrow eyebrow--tag">Sponsor</span>
+            <div class="sponsor-card__inner">
+              <span class="sponsor-card__blob" aria-hidden="true"></span>
+              <h3 class="sponsor-card__wordmark">Grupo Rotonda</h3>
+            </div>
+            <p class="sponsor-card__body">Un aliado clave para que Tech Week suceda en Tandil.</p>
+            <span class="sponsor-card__foot">Conocer más <span aria-hidden="true">↗</span></span>
+          </a>
+
+          <a class="sponsor-card sponsor-card--yellow" href="https://theredguild.org" target="_blank" rel="noopener">
+            <span class="sponsor-card__index">02</span>
+            <span class="eyebrow eyebrow--tag">Sponsor</span>
+            <div class="sponsor-card__inner">
+              <span class="sponsor-card__blob" aria-hidden="true"></span>
+              <h3 class="sponsor-card__wordmark">The Red Guild</h3>
+            </div>
+            <p class="sponsor-card__body">Seguridad y hacking con voces de la comunidad.</p>
+            <span class="sponsor-card__foot">Conocer más <span aria-hidden="true">↗</span></span>
+          </a>
+
+          <a class="sponsor-card sponsor-card--deep" href="https://www.payoneer.com" target="_blank" rel="noopener">
+            <span class="sponsor-card__index">03</span>
+            <span class="eyebrow eyebrow--tag">Sponsor</span>
+            <div class="sponsor-card__inner">
+              <span class="sponsor-card__blob" aria-hidden="true"></span>
+              <h3 class="sponsor-card__wordmark">Payoneer</h3>
+            </div>
+            <p class="sponsor-card__body">Pagos globales para el ecosistema tech.</p>
+            <span class="sponsor-card__foot">Conocer más <span aria-hidden="true">↗</span></span>
+          </a>
         </div>
 
         <div id="inscribirme" class="cta">
