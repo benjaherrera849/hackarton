@@ -1360,7 +1360,6 @@ h3,
   max-width: none;
   padding-right: 4vw;
   will-change: transform;
-  counter-reset: org;
   align-items: stretch;
 }
 
@@ -1368,7 +1367,6 @@ h3,
 .hscroll-track .card {
   --accent: var(--magenta);
   --tilt: -1.4deg;
-  counter-increment: org;
   position: relative;
   width: min(520px, 85vw);
   min-height: 440px;
@@ -1402,19 +1400,6 @@ h3,
   background: var(--accent);
   border-bottom: 2px solid var(--line);
   flex-shrink: 0;
-}
-
-/* Número fantasma gigante */
-.hscroll-track .card::after {
-  content: "0" counter(org);
-  position: absolute;
-  right: 1rem;
-  bottom: -1rem;
-  font-family: var(--font-display);
-  font-size: 7rem;
-  line-height: 1;
-  opacity: 0.08;
-  pointer-events: none;
 }
 
 .hscroll-track .card:hover,
@@ -1852,7 +1837,8 @@ h3,
 
   /* Scroll horizontal → swipe nativo (full-bleed, sin margen negativo) */
   #organizan .section-head {
-    width: 92vw;
+    width: auto;
+    padding: 0 4vw;
   }
 
   .hscroll {
