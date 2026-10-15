@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#FF0A8A" />
   <title>Tandil Tech Week · 14 &amp; 15 octubre 2026</title>
+  <link rel="icon" type="image/svg+xml" href="movediza.svg">
+
   <meta name="description"
     content="14 y 15 de octubre de 2026 en Tandil. Dos días para conectar el ecosistema startup y conocer a los que hacen." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,24 +20,36 @@
 </head>
 
 <body>
-
   <!-- Barra de progreso de scroll -->
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
+  <!-- Header + Navigation -->
   <header class="site-header">
     <div class="shell">
       <a class="site-wordmark" href="/">Tandil Tech Week <span>2026</span></a>
       <nav class="site-nav" aria-label="Secciones">
         <a href="#agenda">Agenda</a>
-        <a href="#speakers">Speakers</a>
         <a href="#eventos">Eventos</a>
         <a href="#organizan">Organizan</a>
         <a href="#acompanan">Acompañan</a>
       </nav>
       <div class="header-actions">
-        <a href="https://instagram.com/tandiltechweek" target="_blank" rel="noopener" class="icon-link"
-          aria-label="Instagram">IG</a>
-        <a href="https://x.com/tandiltechweek" target="_blank" rel="noopener" class="icon-link" aria-label="X">X</a>
+
+        <a class="social-pill social-pill--ig" href="https://instagram.com/tandiltechweek" target="_blank"
+          rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none" />
+          </svg>
+        </a>
+        <a class="social-pill social-pill--x" href="https://x.com/tandiltechweek" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M18.9 1.2h3.7l-8.1 9.3 9.5 12.3h-7.5l-5.9-7.7-6.7 7.7H.2l8.7-9.9L0 1.2h7.7l5.3 7 6-7zm-1.3 19.6h2.1L6.5 3.3H4.3l13.3 17.5z" />
+          </svg>
+        </a>
         <a href="#inscribirme" class="btn btn--small btn--magenta">Inscribirme</a>
       </div>
     </div>
@@ -105,21 +119,12 @@
               </path>
             </g>
           </svg>
-
           <div class="poster-art-content">
-
             <div class="stone-top-box"><span class="stone-year">2026</span>
-              
-              <h1 class="stone-wordmark"><span class="line-tandil">Tandil</span> <span class="line-tech">Tech</span>
-                <span class="line-week">Week</span>
-              </h1>
-              
+              <h1 class="stone-wordmark"><span>Tandil</span><span>Tech</span><span>Week</span></h1>
             </div>
-
           </div>
-
         </div>
-
       </div>
     </section>
 
@@ -211,7 +216,7 @@
     <!-- EVENTOS -->
     <section id="eventos" class="section section--soft">
       <div class="shell">
-        <div class="section-head section-head--split">
+        <div class="section-head">
           <div>
             <p class="eyebrow eyebrow--accent">Agenda abierta</p>
             <h2 class="section-title">Eventos</h2>
@@ -261,8 +266,8 @@
                 </div>
                 <div class="proposal-field">
                   <label for="proposal-email">Tu email</label>
-                  <input id="proposal-email" name="email" type="email" autocomplete="email" placeholder="vos@ejemplo.com"
-                    required>
+                  <input id="proposal-email" name="email" type="email" autocomplete="email"
+                    placeholder="vos@ejemplo.com" required>
                 </div>
               </div>
               <div class="proposal-field">
@@ -281,8 +286,7 @@
               </div>
               <div class="proposal-form__actions">
                 <button class="btn btn--magenta proposal-submit" type="submit">Enviar propuesta</button>
-                <p id="proposal-form-note" class="proposal-form__note">Modo demo: la propuesta no se envía de verdad
-                  todavía, pero pronto lo estará.</p>
+                <p id="proposal-form-note" class="proposal-form__note">demo, la propuesta no se envía...</p>
               </div>
             </form>
 
@@ -351,7 +355,7 @@
           <p class="eyebrow eyebrow--tag eyebrow--yellow"><span class="dot"></span>Gracias</p>
           <h2 class="thanks-title">Este evento es <em>posible</em> gracias a</h2>
           <p class="thanks-lede">Detrás de cada jornada hay equipos que aportan infraestructura, capital y comunidad.
-            Estos son.</p>
+            Ellos son...</p>
         </div>
         <div class="thanks-marquee" aria-hidden="true">
           <div class="thanks-marquee__track">
@@ -382,7 +386,6 @@
         <div class="sponsor-wall">
           <a class="sponsor-card sponsor-card--magenta" href="https://gruporotonda.com.ar" target="_blank"
             rel="noopener">
-            <span class="sponsor-card__index">01</span>
             <span class="eyebrow eyebrow--tag">Sponsor</span>
             <div class="sponsor-card__inner">
               <span class="sponsor-card__blob" aria-hidden="true"></span>
@@ -393,7 +396,6 @@
           </a>
 
           <a class="sponsor-card sponsor-card--yellow" href="https://theredguild.org" target="_blank" rel="noopener">
-            <span class="sponsor-card__index">02</span>
             <span class="eyebrow eyebrow--tag">Sponsor</span>
             <div class="sponsor-card__inner">
               <span class="sponsor-card__blob" aria-hidden="true"></span>
@@ -404,7 +406,6 @@
           </a>
 
           <a class="sponsor-card sponsor-card--deep" href="https://www.payoneer.com" target="_blank" rel="noopener">
-            <span class="sponsor-card__index">03</span>
             <span class="eyebrow eyebrow--tag">Sponsor</span>
             <div class="sponsor-card__inner">
               <span class="sponsor-card__blob" aria-hidden="true"></span>
@@ -429,7 +430,7 @@
 
   <footer class="site-footer">
     <div class="shell">
-      <p>Tandil Tech Week 2026 · Hecho en Tandil</p>
+      <p>Tandil Tech Week 2026 · Hecho por <a class="hackarton" href="https://github.com/benjaherrera849/hackarton" target="_blank" rel="noopener noreferrer">Hackartón</a></p>
       <p><a href="https://instagram.com/tandiltechweek">@tandiltechweek</a> · <a
           href="https://x.com/tandiltechweek">@tandiltechweek</a></p>
     </div>
